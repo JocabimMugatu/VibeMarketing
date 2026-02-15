@@ -7,7 +7,7 @@ const navItems = [
   { href: "/", label: "Dashboard" },
   { href: "/ingest", label: "Ingestion" },
   { href: "/tactics", label: "Tactics Library" },
-  { href: "/magic-launch", label: "Magic Launch" }
+  { href: "/magic-launch", label: "Magic Launch" },
 ];
 
 export default function Sidebar() {

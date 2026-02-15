@@ -4,46 +4,109 @@
 
 :root {
   color-scheme: dark;
+  --font-geist-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  --font-geist-display: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
 }
 
 html {
-  @apply bg-slate-950;
+  @apply bg-neutral-950;
 }
 
 body {
-  @apply bg-slate-950 text-slate-100 antialiased;
+  @apply bg-neutral-950 text-neutral-100 antialiased font-sans;
 }
 
 .app-shell {
-  @apply min-h-screen bg-slate-950;
+  @apply min-h-screen bg-gradient-to-br from-neutral-950 via-neutral-950 to-neutral-900/30;
 }
 
-/* Custom scrollbar */
+/* Custom scrollbar - refined and subtle */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-slate-900;
+  @apply bg-transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply rounded-full bg-slate-700;
+  @apply rounded-full bg-neutral-700/40;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-slate-600;
+  @apply bg-neutral-600/60;
 }
 
 /* Selection styles */
 ::selection {
-  @apply bg-indigo-500/30 text-indigo-200;
+  @apply bg-primary-500/20 text-primary-200;
 }
 
-/* Focus styles */
+/* Focus styles - refined ring */
 :focus-visible {
-  @apply outline-none ring-2 ring-indigo-500 ring-offset-2 ring-offset-slate-950;
+  @apply outline-none ring-2 ring-primary-400/60 ring-offset-2 ring-offset-neutral-950;
+}
+
+/* Typography refinements */
+h1, h2, h3, h4, h5, h6 {
+  @apply font-display tracking-tight;
+}
+
+/* Base component styles */
+@layer components {
+  .card-elevated {
+    @apply rounded-2xl border border-neutral-800/50 bg-neutral-900/40 backdrop-blur-sm shadow-soft;
+  }
+
+  .card-subtle {
+    @apply rounded-2xl border border-neutral-800/30 bg-neutral-900/30;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-full bg-gradient-to-r from-primary-500 to-primary-600 px-6 py-2.5 text-sm font-medium text-white shadow-glow transition-all duration-300 hover:shadow-glow-lg hover:scale-105 active:scale-95 disabled:pointer-events-none disabled:opacity-50;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center rounded-full border border-neutral-700 bg-neutral-800/40 px-6 py-2.5 text-sm font-medium text-neutral-200 backdrop-blur-sm transition-all duration-300 hover:border-neutral-600 hover:bg-neutral-800/60 active:scale-95 disabled:pointer-events-none disabled:opacity-50;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center rounded-full px-6 py-2.5 text-sm font-medium text-neutral-400 transition-all duration-300 hover:bg-neutral-800/40 hover:text-neutral-200 active:scale-95 disabled:pointer-events-none disabled:opacity-50;
+  }
+
+  .input-base {
+    @apply w-full rounded-xl border border-neutral-800/60 bg-neutral-950/60 px-4 py-3 text-sm text-neutral-100 placeholder:text-neutral-600 transition-all duration-300 focus:border-primary-400/50 focus:bg-neutral-950 focus:ring-2 focus:ring-primary-400/10 disabled:opacity-50;
+  }
+
+  .badge {
+    @apply inline-flex items-center rounded-full border px-3 py-1 text-xs font-medium;
+  }
+
+  .badge-primary {
+    @apply border-primary-500/30 bg-primary-500/10 text-primary-300;
+  }
+
+  .badge-neutral {
+    @apply border-neutral-700 bg-neutral-800/40 text-neutral-400;
+  }
+
+  .badge-success {
+    @apply border-accent-emerald-500/30 bg-accent-emerald-500/10 text-accent-emerald-300;
+  }
+
+  .badge-warning {
+    @apply border-accent-amber-500/30 bg-accent-amber-500/10 text-accent-amber-300;
+  }
+
+  .badge-danger {
+    @apply border-accent-rose-500/30 bg-accent-rose-500/10 text-accent-rose-300;
+  }
+}
+
+/* Section spacing refinement */
+section {
+  @apply space-y-6;
 }
 
 /* Animations */
@@ -52,10 +115,15 @@ body {
     opacity: 1;
   }
   50% {
-    opacity: 0.5;
+    opacity: 0.6;
   }
 }
 
 .animate-pulse-slow {
-  animation: pulse-slow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  animation: pulse-slow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Gradient text utility */
+.text-gradient {
+  @apply bg-gradient-to-r from-primary-400 via-primary-300 to-accent-lavender-400 bg-clip-text text-transparent;
 }

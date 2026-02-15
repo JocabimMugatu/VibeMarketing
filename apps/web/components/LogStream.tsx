@@ -9,10 +9,10 @@ interface LogStreamProps {
 }
 
 const levelStyles: Record<LogEvent["level"], string> = {
-  info: "text-slate-300",
-  warning: "text-amber-300",
-  error: "text-rose-300",
-  success: "text-emerald-300",
+  info: "text-neutral-300",
+  warning: "text-accent-amber-300",
+  error: "text-accent-rose-300",
+  success: "text-accent-emerald-300",
 };
 
 const levelIcons: Record<LogEvent["level"], string> = {
@@ -24,45 +24,45 @@ const levelIcons: Record<LogEvent["level"], string> = {
 
 export default function LogStream({ title, events }: LogStreamProps) {
   return (
-    <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-5">
+    <div className="card-elevated p-6">
       <div className="flex items-center justify-between">
         <h3 className="text-sm font-semibold text-white">{title}</h3>
-        <span className="flex items-center gap-1 text-xs text-slate-500">
-          <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-500" />
+        <span className="flex items-center gap-1.5 text-xs text-neutral-500">
+          <span className="h-2 w-2 animate-pulse rounded-full bg-accent-emerald-500" />
           Live
         </span>
       </div>
-      <div className="mt-4 space-y-3 text-xs max-h-64 overflow-y-auto pr-2">
+      <div className="mt-5 space-y-3 text-xs max-h-64 overflow-y-auto pr-2">
         <AnimatePresence mode="popLayout">
           {events.map((event, index) => (
             <motion.div
               key={event.id}
-              initial={{ opacity: 0, x: -20 }}
+              initial={{ opacity: 0, x: -16 }}
               animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 20 }}
+              exit={{ opacity: 0, x: 16 }}
               transition={{
-                duration: 0.3,
+                duration: 0.4,
                 delay: index === 0 ? 0 : 0,
                 ease: [0.25, 0.1, 0.25, 1],
               }}
-              className="flex items-start gap-3"
+              className="flex items-start gap-3 rounded-xl bg-neutral-950/30 px-4 py-3 border border-neutral-800/30"
             >
               <span
                 className={`mt-0.5 text-[10px] ${
                   event.level === "success"
-                    ? "text-emerald-400"
+                    ? "text-accent-emerald-400"
                     : event.level === "warning"
-                    ? "text-amber-400"
+                    ? "text-accent-amber-400"
                     : event.level === "error"
-                    ? "text-rose-400"
-                    : "text-indigo-400"
+                    ? "text-accent-rose-400"
+                    : "text-primary-400"
                 }`}
               >
                 {levelIcons[event.level]}
               </span>
               <div className="flex-1">
                 <p className={`font-medium ${levelStyles[event.level]}`}>{event.message}</p>
-                <p className="text-[10px] uppercase tracking-[0.2em] text-slate-500">
+                <p className="mt-1 text-[10px] uppercase tracking-[0.2em] text-neutral-500">
                   {event.timestamp} {event.source ? `• ${event.source}` : ""}
                 </p>
               </div>
@@ -73,7 +73,7 @@ export default function LogStream({ title, events }: LogStreamProps) {
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="text-slate-500 text-center py-4"
+            className="text-neutral-500 text-center py-6"
           >
             No logs yet. Waiting for events...
           </motion.p>

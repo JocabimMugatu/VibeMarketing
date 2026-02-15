@@ -81,20 +81,20 @@ export default function IngestPage() {
   }, [handleParseContext]);
 
   return (
-    <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
-      <div className="space-y-8">
-        <section className="rounded-2xl border border-slate-800 bg-slate-900/60 p-6">
-          <h3 className="text-lg font-semibold text-white">Project Ingestion</h3>
-          <p className="text-sm text-slate-400">
+    <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
+      <div className="space-y-10">
+        <section className="card-elevated p-8">
+          <h3 className="text-lg font-semibold tracking-tight text-white">Project Ingestion</h3>
+          <p className="mt-1 text-sm text-neutral-400">
             Drop a GitHub URL or paste a README to build the launch context.
           </p>
-          <form className="mt-6 space-y-4" onSubmit={(e) => e.preventDefault()}>
+          <form className="mt-8 space-y-6" onSubmit={(e) => e.preventDefault()}>
             <div>
-              <label className="text-xs uppercase tracking-[0.2em] text-slate-500">
+              <label className="text-[10px] uppercase tracking-[0.25em] text-neutral-500">
                 GitHub URL
               </label>
               <input
-                className="mt-2 w-full rounded-xl border border-slate-800 bg-slate-950 px-4 py-3 text-sm text-slate-200 placeholder:text-slate-600"
+                className="input-base mt-3"
                 placeholder="https://github.com/org/repo"
                 type="url"
                 value={githubUrl}
@@ -103,11 +103,11 @@ export default function IngestPage() {
               />
             </div>
             <div>
-              <label className="text-xs uppercase tracking-[0.2em] text-slate-500">
+              <label className="text-[10px] uppercase tracking-[0.25em] text-neutral-500">
                 Or paste README
               </label>
               <textarea
-                className="mt-2 h-40 w-full rounded-xl border border-slate-800 bg-slate-950 px-4 py-3 text-sm text-slate-200 placeholder:text-slate-600"
+                className="input-base mt-3 h-40 resize-none"
                 placeholder="Paste README or product brief here..."
                 value={readmeText}
                 onChange={(e) => setReadmeText(e.target.value)}
@@ -115,7 +115,7 @@ export default function IngestPage() {
               />
             </div>
             {error && (
-              <div className="rounded-lg border border-rose-800 bg-rose-950/30 px-4 py-3 text-sm text-rose-300">
+              <div className="rounded-xl border border-accent-rose-800 bg-accent-rose-950/20 px-5 py-4 text-sm text-accent-rose-300">
                 {error}
               </div>
             )}
@@ -124,7 +124,7 @@ export default function IngestPage() {
                 type="button"
                 onClick={handleStartIngestion}
                 disabled={isLoading}
-                className="rounded-full bg-indigo-500 px-5 py-2 text-sm font-semibold text-white transition hover:bg-indigo-400 disabled:opacity-50"
+                className="btn-primary"
               >
                 {isLoading ? "Processing..." : "Start Ingestion"}
               </button>
@@ -132,7 +132,7 @@ export default function IngestPage() {
                 type="button"
                 onClick={handleParseContext}
                 disabled={isLoading}
-                className="rounded-full border border-slate-700 px-5 py-2 text-sm text-slate-300 transition hover:border-slate-600 hover:text-slate-200 disabled:opacity-50"
+                className="btn-secondary"
               >
                 Parse Context
               </button>
@@ -140,39 +140,42 @@ export default function IngestPage() {
           </form>
         </section>
 
-        <section className="rounded-2xl border border-slate-800 bg-slate-900/60 p-6">
-          <h3 className="text-lg font-semibold text-white">Context Output</h3>
-          <p className="text-sm text-slate-400">Review and adjust the extracted context.</p>
+        <section className="card-elevated p-8">
+          <h3 className="text-lg font-semibold tracking-tight text-white">Context Output</h3>
+          <p className="mt-1 text-sm text-neutral-400">Review and adjust the extracted context.</p>
           {context ? (
-            <div className="mt-6 space-y-4 text-sm text-slate-300">
+            <div className="mt-8 space-y-6 text-sm text-neutral-300">
               <div>
-                <p className="text-xs uppercase tracking-[0.2em] text-slate-500">Product</p>
-                <p className="mt-2 text-base text-white">{context.productName}</p>
-                <p className="mt-1">{context.summary}</p>
+                <p className="text-[10px] uppercase tracking-[0.25em] text-neutral-500">Product</p>
+                <p className="mt-2 text-base font-medium text-white">{context.productName}</p>
+                <p className="mt-1 leading-relaxed">{context.summary}</p>
               </div>
               <div>
-                <p className="text-xs uppercase tracking-[0.2em] text-slate-500">Audience</p>
-                <p className="mt-2">{context.audience}</p>
+                <p className="text-[10px] uppercase tracking-[0.25em] text-neutral-500">Audience</p>
+                <p className="mt-2 leading-relaxed">{context.audience}</p>
               </div>
               <div>
-                <p className="text-xs uppercase tracking-[0.2em] text-slate-500">Value Props</p>
-                <ul className="mt-2 list-disc space-y-1 pl-4">
+                <p className="text-[10px] uppercase tracking-[0.25em] text-neutral-500">Value Props</p>
+                <ul className="mt-2 space-y-2">
                   {context.valueProps.map((prop, idx) => (
-                    <li key={idx}>{prop}</li>
+                    <li key={idx} className="flex items-start gap-2">
+                      <span className="mt-1.5 h-1 w-1 rounded-full bg-primary-400" />
+                      <span>{prop}</span>
+                    </li>
                   ))}
                 </ul>
               </div>
               <div>
-                <p className="text-xs uppercase tracking-[0.2em] text-slate-500">Tone</p>
-                <p className="mt-2">{context.tone}</p>
+                <p className="text-[10px] uppercase tracking-[0.25em] text-neutral-500">Tone</p>
+                <p className="mt-2 leading-relaxed">{context.tone}</p>
               </div>
               <div>
-                <p className="text-xs uppercase tracking-[0.2em] text-slate-500">Channels</p>
+                <p className="text-[10px] uppercase tracking-[0.25em] text-neutral-500">Channels</p>
                 <div className="mt-2 flex flex-wrap gap-2">
                   {context.channels.map((channel) => (
                     <span
                       key={channel}
-                      className="rounded-full border border-slate-700 bg-slate-950 px-3 py-1 text-xs text-slate-300"
+                      className="badge-neutral"
                     >
                       {channel}
                     </span>
@@ -180,12 +183,12 @@ export default function IngestPage() {
                 </div>
               </div>
               <div>
-                <p className="text-xs uppercase tracking-[0.2em] text-slate-500">Constraints</p>
+                <p className="text-[10px] uppercase tracking-[0.25em] text-neutral-500">Constraints</p>
                 <div className="mt-2 flex flex-wrap gap-2">
                   {context.constraints.map((item, idx) => (
                     <span
                       key={idx}
-                      className="rounded-full border border-slate-700 bg-slate-950 px-3 py-1 text-xs text-slate-300"
+                      className="badge-neutral"
                     >
                       {item}
                     </span>
@@ -194,8 +197,8 @@ export default function IngestPage() {
               </div>
             </div>
           ) : (
-            <div className="mt-6 rounded-xl border border-dashed border-slate-800 bg-slate-950/50 p-8 text-center">
-              <p className="text-sm text-slate-500">
+            <div className="mt-8 card-subtle p-10 text-center">
+              <p className="text-sm text-neutral-500">
                 No context parsed yet. Start ingestion to extract project context.
               </p>
             </div>
@@ -204,9 +207,9 @@ export default function IngestPage() {
       </div>
 
       <div className="space-y-6">
-        <section className="rounded-2xl border border-slate-800 bg-slate-900/60 p-6">
-          <h3 className="text-lg font-semibold text-white">Ingestion Progress</h3>
-          <div className="mt-6 space-y-4">
+        <section className="card-elevated p-6">
+          <h3 className="text-sm font-semibold text-white">Ingestion Progress</h3>
+          <div className="mt-6 space-y-5">
             <ProgressBar label="Fetch Repo" value={progress.fetch} />
             <ProgressBar label="Parse Context" value={progress.parse} />
             <ProgressBar label="Generate Tactics" value={progress.tactics} />

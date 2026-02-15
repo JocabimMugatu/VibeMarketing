@@ -55,7 +55,7 @@ export default function MagicLaunchPage() {
   const [newStep, setNewStep] = useState({
     title: "",
     owner: "",
-    status: "Backlog" as const,
+    status: "Backlog" as WorkflowStep["status"],
     due: "",
   });
   const [selectedPlanId, setSelectedPlanId] = useState<string>("");
@@ -107,7 +107,7 @@ export default function MagicLaunchPage() {
         status: newStep.status,
         due: newStep.due || undefined,
       });
-      setNewStep({ title: "", owner: "", status: "Backlog", due: "" });
+      setNewStep({ title: "", owner: "", status: "Backlog" as WorkflowStep["status"], due: "" });
       setShowNewStepForm(false);
       await loadData();
     } catch (err) {

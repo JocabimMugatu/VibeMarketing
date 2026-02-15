@@ -59,7 +59,7 @@ export default function DashboardPage() {
 
         setStats({
           readiness,
-          pipeline: `$${420 + shipped * 10}k`,
+          pipeline: `${420 + shipped * 10}k`,
           retention: (7.4 + shipped * 0.1).toFixed(1),
           backlogCount: backlog,
           inProgressCount: inProgress,
@@ -108,19 +108,19 @@ export default function DashboardPage() {
   if (isLoading) {
     return (
       <div className="flex h-64 items-center justify-center">
-        <div className="h-8 w-8 animate-spin rounded-full border-2 border-slate-700 border-t-indigo-500" />
+        <div className="h-8 w-8 animate-spin rounded-full border-2 border-neutral-800 border-t-primary-500" />
       </div>
     );
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
       <section>
-        <h3 className="text-lg font-semibold text-white">Launch Overview</h3>
-        <p className="text-sm text-slate-400">
+        <h3 className="text-lg font-semibold tracking-tight text-white">Launch Overview</h3>
+        <p className="mt-1 text-sm text-neutral-400">
           Pulse check on launch readiness, pipeline health, and execution velocity.
         </p>
-        <div className="mt-6 grid gap-4 md:grid-cols-3">
+        <div className="mt-8 grid gap-5 md:grid-cols-3">
           <StatCard label="Launch Readiness" value={`${stats.readiness}%`} trend="+6% wk" />
           <StatCard label="Pipeline Coverage" value={stats.pipeline} trend="+14% wk" />
           <StatCard label="Retention Signals" value={stats.retention} trend="+0.8" />
@@ -128,33 +128,33 @@ export default function DashboardPage() {
       </section>
 
       <section className="grid gap-6 lg:grid-cols-[2fr_1fr]">
-        <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-6">
+        <div className="card-elevated p-8">
           <h4 className="text-sm font-semibold text-white">Quarterly Objectives</h4>
-          <div className="mt-6 space-y-5">
+          <div className="mt-8 space-y-6">
             <ProgressBar label="Narrative Alignment" value={76} />
             <ProgressBar label="Activation Journey" value={58} />
             <ProgressBar label="Launch Assets" value={64} />
             <ProgressBar label="Channel Readiness" value={71} />
           </div>
         </div>
-        <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-6">
+        <div className="card-elevated p-6">
           <h4 className="text-sm font-semibold text-white">Kanban Summary</h4>
-          <div className="mt-4 grid grid-cols-2 gap-3">
-            <div className="rounded-xl border border-slate-800 bg-slate-950/50 p-3 text-center">
-              <p className="text-2xl font-semibold text-white">{stats.backlogCount}</p>
-              <p className="text-xs text-slate-500">Backlog</p>
+          <div className="mt-6 grid grid-cols-2 gap-3">
+            <div className="card-subtle p-4 text-center">
+              <p className="text-2xl font-semibold tracking-tight text-white">{stats.backlogCount}</p>
+              <p className="mt-1 text-xs text-neutral-500">Backlog</p>
             </div>
-            <div className="rounded-xl border border-slate-800 bg-slate-950/50 p-3 text-center">
-              <p className="text-2xl font-semibold text-indigo-400">{stats.inProgressCount}</p>
-              <p className="text-xs text-slate-500">In Progress</p>
+            <div className="card-subtle p-4 text-center">
+              <p className="text-2xl font-semibold tracking-tight text-primary-400">{stats.inProgressCount}</p>
+              <p className="mt-1 text-xs text-neutral-500">In Progress</p>
             </div>
-            <div className="rounded-xl border border-slate-800 bg-slate-950/50 p-3 text-center">
-              <p className="text-2xl font-semibold text-amber-400">{stats.reviewCount}</p>
-              <p className="text-xs text-slate-500">Review</p>
+            <div className="card-subtle p-4 text-center">
+              <p className="text-2xl font-semibold tracking-tight text-accent-amber-400">{stats.reviewCount}</p>
+              <p className="mt-1 text-xs text-neutral-500">Review</p>
             </div>
-            <div className="rounded-xl border border-slate-800 bg-slate-950/50 p-3 text-center">
-              <p className="text-2xl font-semibold text-emerald-400">{stats.shippedCount}</p>
-              <p className="text-xs text-slate-500">Shipped</p>
+            <div className="card-subtle p-4 text-center">
+              <p className="text-2xl font-semibold tracking-tight text-accent-emerald-400">{stats.shippedCount}</p>
+              <p className="mt-1 text-xs text-neutral-500">Shipped</p>
             </div>
           </div>
         </div>
@@ -162,15 +162,15 @@ export default function DashboardPage() {
 
       <section className="grid gap-6 lg:grid-cols-[1.3fr_1fr]">
         <LogStream title="Live Mission Log" events={logs} />
-        <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-6">
+        <div className="card-elevated p-6">
           <h4 className="text-sm font-semibold text-white">Next Moves</h4>
-          <div className="mt-4 space-y-4 text-sm text-slate-300">
+          <div className="mt-6 space-y-6 text-sm text-neutral-300">
             <div>
-              <p className="text-xs uppercase tracking-[0.2em] text-slate-500">Today</p>
+              <p className="text-[10px] uppercase tracking-[0.25em] text-neutral-500">Today</p>
               <p className="mt-2">Review context extraction and approve tactics shortlist.</p>
             </div>
             <div>
-              <p className="text-xs uppercase tracking-[0.2em] text-slate-500">This Week</p>
+              <p className="text-[10px] uppercase tracking-[0.25em] text-neutral-500">This Week</p>
               <p className="mt-2">Lock launch narrative and content calendar.</p>
             </div>
           </div>

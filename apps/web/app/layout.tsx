@@ -4,11 +4,11 @@ import Topbar from "../components/Topbar";
 
 export const metadata = {
   title: "VibeLaunch OS",
-  description: "CMO dashboard for VibeLaunch OS"
+  description: "CMO dashboard for VibeLaunch OS",
 };
 
 export default function RootLayout({
-  children
+  children,
 }: {
   children: React.ReactNode;
 }) {

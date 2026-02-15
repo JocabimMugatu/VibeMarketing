@@ -71,7 +71,7 @@ def _basic_context(readme_text: str) -> dict:
         "tone": "Confident and launch-ready",
         "channels": ["Website", "Email", "Social", "Community"],
         "constraints": ["Lean team", "Limited launch window"],
-        "source": "heuristic"
+        "source": "heuristic",
     }
 
 
@@ -96,9 +96,9 @@ def _llm_context(readme_text: str) -> Optional[dict]:
         model=os.getenv("OPENAI_MODEL", "gpt-4o-mini"),
         messages=[
             {"role": "system", "content": prompt},
-            {"role": "user", "content": readme_text}
+            {"role": "user", "content": readme_text},
         ],
-        temperature=0.2
+        temperature=0.2,
     )
     content = response.choices[0].message.content or ""
     try:
@@ -108,6 +108,28 @@ def _llm_context(readme_text: str) -> Optional[dict]:
 
     payload["source"] = "llm"
     return payload
+
+
+def _normalize_list(value: Optional[object]) -> list[str]:
+    if isinstance(value, list):
+        return [str(item) for item in value if str(item).strip()]
+    if isinstance(value, str) and value.strip():
+        return [value.strip()]
+    return []
+
+
+def _normalize_context(payload: dict, fallback_text: str) -> dict:
+    fallback = _basic_context(fallback_text)
+    return {
+        "product_name": payload.get("product_name") or fallback["product_name"],
+        "summary": payload.get("summary") or fallback["summary"],
+        "audience": payload.get("audience") or fallback["audience"],
+        "value_props": _normalize_list(payload.get("value_props")) or fallback["value_props"],
+        "tone": payload.get("tone") or fallback["tone"],
+        "channels": _normalize_list(payload.get("channels")) or fallback["channels"],
+        "constraints": _normalize_list(payload.get("constraints")) or fallback["constraints"],
+        "source": payload.get("source") or fallback["source"],
+    }
 
 
 def parse_project_context(github_url: Optional[str], readme_text: Optional[str]) -> dict:
@@ -120,6 +142,6 @@ def parse_project_context(github_url: Optional[str], readme_text: Optional[str])
 
     llm_payload = _llm_context(text)
     if llm_payload:
-        return llm_payload
+        return _normalize_context(llm_payload, text)
 
     return _basic_context(text)

@@ -43,12 +43,3 @@ async def ingest(payload: IngestRequest) -> IngestResponse:
 
     return IngestResponse(status="ok", context=ContextResponse(**context))
 
-
-@router.post("/context/parse", response_model=ContextResponse)
-async def parse_context(payload: IngestRequest) -> ContextResponse:
-    if not payload.github_url and not payload.readme_text:
-        raise HTTPException(status_code=400, detail="Provide github_url or readme_text")
-
-    add_log(level="info", message="Context parse requested", source="parser")
-    context = parse_project_context(payload.github_url, payload.readme_text)
-    return ContextResponse(**context)
